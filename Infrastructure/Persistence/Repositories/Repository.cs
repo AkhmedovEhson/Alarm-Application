@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class Repository<T> where T : class
     {
-        public ApplicationDbContext ApplicationDbContext;
+        private ApplicationDbContext ApplicationDbContext;
 
         public Repository(ApplicationDbContext applicationDbContext)
         {
@@ -35,6 +35,14 @@ namespace Infrastructure.Persistence.Repositories
         public async Task Remove(T data)
         {
             ApplicationDbContext.Remove(data);
+            await ApplicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveId(int id)
+        {
+            var entity = await ApplicationDbContext.Alarms.Where(o => o.Id == id).FirstAsync();
+            ApplicationDbContext.Remove(entity);
+
             await ApplicationDbContext.SaveChangesAsync();
         }
     }
