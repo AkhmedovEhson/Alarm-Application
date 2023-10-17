@@ -22,7 +22,7 @@ export class AppElement extends React.Component{
     }
     
     for(let i = 0; i <= 59; i++){
-      this.#array[i] = i;
+        this.#array[i] = <div>{i}</div>
     }
   }
 
@@ -74,11 +74,8 @@ export class AppElement extends React.Component{
                       <div id='timer-count-time-app'> {this.state.hour} : </div>
                       <div id='timer-count-time-app'> {this.state.minute} : </div>
                       <div id='timer-count-time-app3'>
-                        <div id = 'seconds-app' style={{transform:`translate(0px,${-92.8 * this.state.second}px)`}}>{
-                          this.#array.map(e => {
-                            return <div>{e}</div>
-                          })
-                        }</div> 
+                        <div id = 'seconds-app' style={{transform:`translate(0px,${-92.8 * this.state.second}px)`}}>
+                        {this.#array}</div> 
                       </div>
                     </div>
                     <div style={{display:'grid'}}>
