@@ -13,8 +13,7 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<AlarmEntity> builder)
         {
-            builder.Property("From").IsRequired();
-            builder.Property("To").IsRequired();
+            builder.Property("RingAt").IsRequired();
         }
     }
 }
