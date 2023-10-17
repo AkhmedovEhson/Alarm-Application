@@ -1,0 +1,13 @@
+/.vs
+WebTimer/bin
+WebTimer/obj
+Infrastructure/bin
+Infrastructure/obj
+Domain/bin
+Domain/obj
+Application/bin
+Application/obj
+WebTimer.sln
+WebTimer/appsettings.json
+WebTimer/appsettings.Development.json
+WebTimer/Client-ReactApp/clientapp/node_modules
