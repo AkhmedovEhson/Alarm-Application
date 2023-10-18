@@ -1,13 +1,31 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.IRepositories;
+using Domain.Entities;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Alarm.Queries.GetAlarmById
 {
-    public class GetAlarmByIdQuery:IRequest
+    public class GetAlarmByIdQuery:IRequest<AlarmEntity>
     {
+        public int Id { get; set; }
+    }
+
+    public class GetAlarmByIdQueryHandler:IRequestHandler<GetAlarmByIdQuery,AlarmEntity>
+    {
+        private readonly IServiceProvider _serviceProvider;
+        public GetAlarmByIdQueryHandler(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public async Task<AlarmEntity> Handle(GetAlarmByIdQuery entity,CancellationToken cancellationToken)
+        {
+            var repo = _serviceProvider.GetRequiredService<IAlarmRepository>();
+
+            var alarm = await repo.FindAsync(entity.Id) ?? throw new NotFoundException();
+
+            return alarm;
+        }
     }
 }
