@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Application.Common.Interfaces.IRepositories;
+using Domain.Common;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class Repository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class 
     {
         private ApplicationDbContext ApplicationDbContext;
 
@@ -26,11 +28,16 @@ namespace Infrastructure.Persistence.Repositories
         {
             return ApplicationDbContext.Set<T>().FindAsync(id);
         }
-
+        
         public async Task AddAsync(T data)
         {
             await ApplicationDbContext.AddAsync(data);  
             await ApplicationDbContext.SaveChangesAsync();  
+        }
+        public async Task Update(T data)
+        {
+            ApplicationDbContext.Set<T>().Update(data);
+            await ApplicationDbContext.SaveChangesAsync();
         }
         public async Task Remove(T data)
         {
@@ -38,12 +45,19 @@ namespace Infrastructure.Persistence.Repositories
             await ApplicationDbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveId(int id)
+        public async Task<int> RemoveId(int id)
         {
             var entity = await ApplicationDbContext.Alarms.Where(o => o.Id == id).FirstAsync();
+
+            if (entity == null)
+            {
+                return 1;
+            }
+
             ApplicationDbContext.Remove(entity);
 
             await ApplicationDbContext.SaveChangesAsync();
+            return 0;
         }
     }
 }
