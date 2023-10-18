@@ -1,4 +1,5 @@
-﻿using Infrastructure.Persistence;
+﻿using Application.Common.Interfaces.IRepositories;
+using Infrastructure.Persistence;
 using Infrastructure.Persistence.Interceptors;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace Infrastructure
 
 
             // Fill DI by repositories ...
-            services.AddScoped<AlarmRepository>();
+            services.AddScoped<IAlarmRepository,AlarmRepository>();
 
             return services;
         }
