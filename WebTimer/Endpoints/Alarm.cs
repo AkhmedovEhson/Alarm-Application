@@ -8,41 +8,45 @@ using Application.Alarm.Commands.CreateAlarmCommand;
 using Application.Alarm.Commands.UpdateAlarmCommand;
 using Application.Alarm.Commands.DeleteAlarmCommand;
 using Application.Alarm.Queries.GetAlarmById;
+using Domain.Entities;
+using MediatR;
+using WebTimer.Filters;
 
 namespace WebTimer.Endpoints
 {
+    [ApiExceptionFilter]
     [Route("api/[controller]")]
     [ApiController]
     public class Alarm : ApiControllerBase
     {
         [HttpGet]
-        public async Task GetAsync()
+        public async Task<List<AlarmEntity>> GetAsync()
         {
-            await Sender.Send(new GetAlarmsQuery());
+            return await Sender.Send(new GetAlarmsQuery());
         }
 
-        [Route("{id}")]
+        [Route("{Id}")]
         [HttpGet]
-        public async Task GetByIdAsync([FromRoute] GetAlarmByIdQuery query)
+        public async Task<AlarmEntity> GetByIdAsync([FromRoute] GetAlarmByIdQuery query)
         {
-            await Sender.Send(new GetAlarmByIdQuery());
+            return await Sender.Send(query);
         }
         [HttpPost]
-        public async Task PostAsync()
+        public async Task<Unit> PostAsync()
         {
-            await Sender.Send(new CreateAlarmCommand());
+            return await Sender.Send(new CreateAlarmCommand());
         }
 
         [HttpPut]
-        public async Task PutAsync()
+        public async Task<Unit> PutAsync()
         {
-            await Sender.Send(new UpdateAlarmCommand());
+            return await Sender.Send(new UpdateAlarmCommand());
         }
 
         [HttpDelete]
-        public async Task DeleteAsync()
+        public async Task<Unit> DeleteAsync()
         {
-            await Sender.Send(new DeleteAlarmCommand());
+            return await Sender.Send(new DeleteAlarmCommand());
         }
     }
 }
