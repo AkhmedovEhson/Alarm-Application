@@ -55,5 +55,5 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Build
-      run: dotnet build ChatService 
+      run: dotnet build 
     
