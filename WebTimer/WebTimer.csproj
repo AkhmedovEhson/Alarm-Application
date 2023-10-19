@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Client-ReactApp\clientapp\src\Store\" />
+  </ItemGroup>
+
 </Project>
