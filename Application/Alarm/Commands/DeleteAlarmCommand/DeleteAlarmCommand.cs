@@ -1,5 +1,6 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces.IRepositories;
+using Domain.Common.Errors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,7 +29,7 @@ namespace Application.Alarm.Commands.DeleteAlarmCommand
             var repo = _serviceProvider.GetRequiredService<IAlarmRepository>();
            
             if (await repo.RemoveId(command.Id) > 0) 
-                throw new NotFoundException();
+                throw new NotFoundException(Errors.Alarm.NotFound);
 
             return Unit.Value;
         }

@@ -1,5 +1,6 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces.IRepositories;
+using Domain.Common.Errors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,7 +28,7 @@ namespace Application.Alarm.Commands.UpdateAlarmCommand
         public async Task<Unit> Handle(UpdateAlarmCommand command,CancellationToken cancellationToken)
         {
             var repo = _serviceProvider.GetRequiredService<IAlarmRepository>();
-            var entity = await repo.FindAsync(command.Id) ?? throw new NotFoundException();
+            var entity = await repo.FindAsync(command.Id) ?? throw new NotFoundException(Errors.Alarm.NotFound);
 
             entity.RingAt = command.RingAt;
 
