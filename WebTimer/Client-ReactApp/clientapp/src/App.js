@@ -25,10 +25,9 @@ export class AppElement extends React.Component{
 
 
 const mapStateToProps = state => ({
-  cash:state.app.cash
+  cash: state.app.cash,
+  alarms: state.alarm.alarms
 });
 
-export default connect(mapStateToProps,{
-  AddCash,
-})(AppElement)
+export default connect(mapStateToProps)(AppElement)
 
