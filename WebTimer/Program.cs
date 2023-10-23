@@ -42,4 +42,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors("UnsecurePolicy");
+
 app.Run();
