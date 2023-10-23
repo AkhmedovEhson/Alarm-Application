@@ -5,12 +5,12 @@ using Domain.Entities;
 
 namespace Application.Alarm.Commands.CreateAlarmCommand
 {
-    public class CreateAlarmCommand:IRequest<Unit>
+    public class CreateAlarmCommand:IRequest<AlarmEntity>
     {
         public DateTime RingAt { get; set; }
     }
 
-    public class CreateAlarmCommandHandler : IRequestHandler<CreateAlarmCommand, Unit>
+    public class CreateAlarmCommandHandler : IRequestHandler<CreateAlarmCommand, AlarmEntity>
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -19,7 +19,7 @@ namespace Application.Alarm.Commands.CreateAlarmCommand
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<Unit> Handle(CreateAlarmCommand command,CancellationToken cancellationToken)
+        public async Task<AlarmEntity> Handle(CreateAlarmCommand command,CancellationToken cancellationToken)
         {
             var repo = _serviceProvider.GetRequiredService<IAlarmRepository>();
 
@@ -30,7 +30,7 @@ namespace Application.Alarm.Commands.CreateAlarmCommand
 
             await repo.AddAsync(entity);
 
-            return Unit.Value;
+            return entity;
         }
     }
 }
