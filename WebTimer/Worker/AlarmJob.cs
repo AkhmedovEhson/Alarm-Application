@@ -15,10 +15,6 @@ namespace WebTimer.Worker
 
                 Console.WriteLine("Hello in 12:00");
 
-
-                // todo: just realize smtp client ... 
-                var smtp = new SmtpClient();
-
             }
         }
     }
