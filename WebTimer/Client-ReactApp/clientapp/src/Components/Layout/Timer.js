@@ -1,4 +1,7 @@
 import { Component } from "react";
+import { addAlarm } from "../../addAlarm";
+import { connect } from "react-redux";
+import { WebApi } from "../../web-api";
 
 class Timer extends Component {
     #array = []
@@ -12,7 +15,7 @@ class Timer extends Component {
           hour:0,
           minute:0,
           second:0,
-          navigation:false
+          alarms:[]
         }
         
         // _fields
@@ -38,11 +41,20 @@ class Timer extends Component {
       this.getTime()
     }, 1000);
 
+    const el = document.getElementById("timer-app");
+    const height = el.getBoundingClientRect().height.toFixed(1);
+    this.setState({height:0.0 - height});
   }
 
   componentWillUnmount(){
     clearInterval(this.interval);
-  }
+    }
+
+    PostAsync() {
+       PostAlarms(this.props.dispatch);
+       GetAlarms(this.props.dispatch);
+    }
+
     render() {
         return(
             <div className='main-app-container'>           
@@ -52,17 +64,16 @@ class Timer extends Component {
                         <div id='timer-count-time-app'> {this.state.hour} : </div>
                         <div id='timer-count-time-app'> {this.state.minute} : </div>
                         <div id='timer-count-time-app3'>
-                            <div id = 'seconds-app' style={{transform:`translate(0px,${-92.8 * this.state.second}px)`}}>
+                            <div id = 'seconds-app' style={{transform:`translate(0px,${this.state.height * this.state.second}px)`}}>
                             {this.#array}</div> 
                         </div>
                     </div>
                     <div style={{display:'grid'}}>
-
                         <div className='create-button-time-app'>
                             <input type='date' placeholder='To'/>
                         </div>
-                        <div id='create-button-block-app'>
-                            <button id='timer-count-button-time-app'>Create</button>
+                            <div id='create-button-block-app'>
+                                <button id='timer-count-button-time-app' onClick={() => this.PostAsync()}>Create</button>
                         </div>
                     </div>
 
@@ -72,4 +83,18 @@ class Timer extends Component {
         )
     }
 }
-export default Timer;
+const mapStateToProps = state => ({
+    alarms: state.alarm.alarms
+  });
+
+export const GetAlarms = (dispatch) => {
+    const WebAPIs = new WebApi();
+    dispatch(WebAPIs.GetAlarms());
+}
+
+export const PostAlarms = (dispatch) => {
+    const WebAPIs = new WebApi();
+    dispatch(WebAPIs.PostAlarm());
+}
+  
+  export default connect(mapStateToProps)(Timer)
