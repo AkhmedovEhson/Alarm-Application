@@ -11,9 +11,11 @@ using Application.Alarm.Queries.GetAlarmById;
 using Domain.Entities;
 using MediatR;
 using WebTimer.Filters;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebTimer.Endpoints
 {
+    
     [ApiExceptionFilter]
     [Route("api/[controller]")]
     [ApiController]
@@ -31,22 +33,23 @@ namespace WebTimer.Endpoints
         {
             return await Sender.Send(query);
         }
+
         [HttpPost]
-        public async Task<Unit> PostAsync()
+        public async Task<AlarmEntity> PostAsync(CreateAlarmCommand command)
         {
-            return await Sender.Send(new CreateAlarmCommand());
+            return await Sender.Send(command);
         }
 
         [HttpPut]
-        public async Task<Unit> PutAsync()
+        public async Task<Unit> PutAsync(UpdateAlarmCommand command)
         {
-            return await Sender.Send(new UpdateAlarmCommand());
+            return await Sender.Send(command);
         }
 
         [HttpDelete]
-        public async Task<Unit> DeleteAsync()
+        public async Task<Unit> DeleteAsync(DeleteAlarmCommand command)
         {
-            return await Sender.Send(new DeleteAlarmCommand());
+            return await Sender.Send(command);
         }
     }
 }
