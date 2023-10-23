@@ -7,11 +7,18 @@
   background-color: rgb(196, 190, 190);
   grid-column: span 1;
   text-align: center;
+  overflow-y: scroll;
+  max-height: 90vh;
   
 }
-.main-app{
-  display: grid;
-  grid-template-columns: 1fr 5fr;
+.nav-block-app{
+    overflow:visible;
+    height: 10%;
+}
+
+.main-app {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
 }
 .create-button-time-app{
   display: grid;
@@ -22,7 +29,17 @@
 }
 .container-app {
   display: grid;
+  
 }
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(97, 96, 96, 0.495);
+  border-radius: 9px;
+}
+
 .a-app{
   display: flex;
   justify-content: center;
@@ -118,8 +135,15 @@ button{
   margin-right: 10px;
   border-radius: 12px;
   opacity: 0.8;
-
+  cursor: pointer;
 }
+.found-element-search-bar-app:hover{
+  color: white;
+  background-color: tomato;
+  transition: 1s;
+  opacity: 1;
+}
+
 .search-bar-app{
   width: 80%;
   font-size: 14px;
