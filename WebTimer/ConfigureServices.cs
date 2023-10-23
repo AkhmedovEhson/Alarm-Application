@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using WebTimer.Worker;
 
 namespace WebTimer
 {
@@ -11,6 +12,7 @@ namespace WebTimer
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddHostedService<AlarmJob>();
             return services;
         }
     }
