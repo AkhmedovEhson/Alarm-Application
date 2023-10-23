@@ -21,7 +21,7 @@ namespace Infrastructure.Persistence.Repositories
         
         public Task<List<T>> GetValuesAsync()
         {
-            return ApplicationDbContext.Set<T>().ToListAsync();
+            return ApplicationDbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
         public ValueTask<T?> FindAsync(int id)
