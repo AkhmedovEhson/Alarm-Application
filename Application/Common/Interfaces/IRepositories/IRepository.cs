@@ -8,7 +8,7 @@ namespace Application.Common.Interfaces.IRepositories
 {
     public interface IRepository<T>
     {
-        public Task<List<T>> GetValuesAsync();
+        public IQueryable<T> GetValuesQueryable(bool byDescending);
         public ValueTask<T?> FindAsync(int id);
         public Task AddAsync(T data);
         public Task Update(T data);

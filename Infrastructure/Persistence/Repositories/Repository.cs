@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class 
+    public class Repository<T> : IRepository<T> where T : BaseAuditableEntity
     {
         private ApplicationDbContext ApplicationDbContext;
 
@@ -18,10 +18,16 @@ namespace Infrastructure.Persistence.Repositories
         {
             ApplicationDbContext = applicationDbContext;
         }
-        
-        public Task<List<T>> GetValuesAsync()
+
+        public IQueryable<T> GetValuesQueryable(bool byDescending = false)
         {
-            return ApplicationDbContext.Set<T>().AsNoTracking().ToListAsync();
+            if (byDescending)
+            {
+                return ApplicationDbContext.Set<T>().AsNoTracking().OrderByDescending(o => o.Id);
+            }
+
+            return ApplicationDbContext.Set<T>().AsNoTracking();
+
         }
 
         public ValueTask<T?> FindAsync(int id)
@@ -45,6 +51,11 @@ namespace Infrastructure.Persistence.Repositories
             await ApplicationDbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Repository method, <seealso cref="RemoveId(int)"/> will remove entity by ID, if responses 1 : error, 0 is success
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<int> RemoveId(int id)
         {
             var entity = await ApplicationDbContext.Alarms.Where(o => o.Id == id).FirstAsync();
