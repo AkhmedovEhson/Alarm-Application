@@ -102,13 +102,18 @@ button{
 }
 
 #timer-count-button-time-app{
-  background-color: rgba(38, 182, 153, 0.741);
-  font-size: 20px;
+  background-color: rgba(50, 111, 168, 0.615);
+  opacity: 0.6;
+  font-size: 13px;
   width: 70%;
   padding: 15px;
   font-style: italic;
   border-radius:9px;
   cursor: pointer;
+  transition: 0.4s;
+}
+#timer-count-button-time-app:hover{
+  opacity: 1;
 }
 #time{
   display: inline;
