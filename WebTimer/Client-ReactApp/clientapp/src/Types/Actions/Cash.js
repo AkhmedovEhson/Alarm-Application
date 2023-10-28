@@ -4,3 +4,10 @@ export const AddCash = (cash) => {
         payload: cash
     }
 }
+
+export const AddAlarm = (date) => {
+    return {
+        type:"Add",
+        payload:date
+    }
+}

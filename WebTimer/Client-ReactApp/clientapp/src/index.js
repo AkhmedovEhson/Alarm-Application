@@ -8,6 +8,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import NotificationStoreElement from './Components/Layout/NotificationStore';
 import AppRoutes from './AppRouter';
+
+import { alarmReducer, alarmSlice } from './Store/Alarms/AlarmSlice';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -25,8 +28,9 @@ const reducer = (state = defautstate,action) => {
 
 const store = configureStore({
   reducer:{
-    app:reducer
-  }
+        app: reducer,
+        alarm: alarmReducer
+    }
 });
 
 root.render(

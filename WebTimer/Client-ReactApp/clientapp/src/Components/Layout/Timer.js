@@ -1,79 +1,103 @@
-import { Component } from "react";
-import { addAlarm } from "../../addAlarm";
+import { Component, useRef } from "react";
+import { alarmSlice, getAlarm, unShiftAlarm } from "../../Store/Alarms/AlarmSlice";
 import { connect } from "react-redux";
 import { WebApi } from "../../web-api";
+import { TimerState } from "../../Types/States/TimerState";
+import { PostAlarms } from "../../Utills/Thunk/Commands/CreateAlarmCommand";
+import { GetAlarms } from "../../Utills/Thunk/Queries/GetAlarmsQuery";
+import { Button, Input } from "@mui/material";
+import moment from "moment/moment";
+import React from "react";
+
 
 class Timer extends Component {
     #array = []
+    #date = new Date();
 
     constructor(props)
     {
         super(props)
+        this.#date.setHours(this.#date.getHours() + 2);
+    
+        this.state = TimerState;
+
+        this.TimerAppElement = React.createRef();
+
+        // fix: bugfix { ...... }
+        console.log("Timer constructor : ", this.props);
         
-        // UseState stuff
-        this.state = {
-          hour:0,
-          minute:0,
-          second:0,
-          alarms:[]
-        }
-        
-        // _fields
-        this.deadline = "June, 31, 24"
         this.interval = null;
 
         for(let i = 0; i <= 59; i++) this.#array[i] = <div>{i}</div> 
     }
 
-    
-  getTime = () => {
-    const time = Date.parse(this.deadline) - Date.now();
+    getTime = () => {
 
-    this.setState({hour:Math.floor((time / (1000 * 60 * 60)) % 24)});
-    this.setState({minute:Math.floor((time / 1000 / 60) % 60)});
-    this.setState({second:Math.floor((time / 1000) % 60)});
-    
+        // date config ...
 
-  };
 
-  componentDidMount() {
-    this.interval = setInterval(() => {
-      this.getTime()
+        // time settings ... 
+        const time = this.#date - Date.now();
+        console.log(this.state.second);
+        this.setState({
+            day:Math.floor((time / ((1000 * 60 * 60) * 24))), // day
+            hour:Math.floor((time / (1000 * 60 * 60)) % 24), // hour
+            minute:Math.floor((time / 1000 / 60) % 60), // minute
+            second:Math.floor((time / 1000) % 60) // second
+            
+        });
+    };
+
+
+  async componentDidMount() {
+        this.interval = setInterval(() => {
+        this.getTime();
     }, 1000);
-
-    const el = document.getElementById("timer-app");
-    const height = el.getBoundingClientRect().height.toFixed(1);
+    const height = this.TimerAppElement.current.getBoundingClientRect().height.toFixed(1);
     this.setState({height:0.0 - height});
-  }
-
-  componentWillUnmount(){
-    clearInterval(this.interval);
+    console.log(height);
     }
 
-    PostAsync() {
-       PostAlarms(this.props.dispatch);
-       GetAlarms(this.props.dispatch);
+
+    componentDidUpdate() {
+        // { .... } fill it 
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
+    // Async operation ( Creates Alarm asynchronously )
+    async PostAsync() {
+        const date = new Date(this.state.date);
+        const request = { ringAt:date.toISOString() }
+        await PostAlarms(this.props.dispatch,request);
+        await GetAlarms(this.props.dispatch);
     }
 
     render() {
+        
         return(
             <div className='main-app-container'>           
                 <div className ='timer-app'>
                     <div id='timer-count-app'>
                         <div id = 'timer-app'>
+                        <div id = 'timer-count-time-app'><span style={{color:'steelblue'}}>{this.state.day}</span> : </div>
                         <div id='timer-count-time-app'> {this.state.hour} : </div>
                         <div id='timer-count-time-app'> {this.state.minute} : </div>
-                        <div id='timer-count-time-app3'>
+                        <div id='timer-count-time-app3' ref={this.TimerAppElement}>
                             <div id = 'seconds-app' style={{transform:`translate(0px,${this.state.height * this.state.second}px)`}}>
                             {this.#array}</div> 
                         </div>
                     </div>
                     <div style={{display:'grid'}}>
+            
                         <div className='create-button-time-app'>
-                            <input type='date' placeholder='To'/>
+                            <Input value={this.state.date} onChange={(e) => this.setState({date:e.target.value})} type="date" />
+                         
                         </div>
                             <div id='create-button-block-app'>
-                                <button id='timer-count-button-time-app' onClick={() => this.PostAsync()}>Create</button>
+                                <Button style={{color:"white"}} id='timer-count-button-time-app' onClick={() => this.PostAsync()}>Create</Button>
                         </div>
                     </div>
 
@@ -84,17 +108,9 @@ class Timer extends Component {
     }
 }
 const mapStateToProps = state => ({
-    alarms: state.alarm.alarms
+    alarms: state.alarm.alarms,
+    alarm:state.alarm.alarm
   });
 
-export const GetAlarms = (dispatch) => {
-    const WebAPIs = new WebApi();
-    dispatch(WebAPIs.GetAlarms());
-}
-
-export const PostAlarms = (dispatch) => {
-    const WebAPIs = new WebApi();
-    dispatch(WebAPIs.PostAlarm());
-}
   
-  export default connect(mapStateToProps)(Timer)
+export default connect(mapStateToProps)(Timer)
