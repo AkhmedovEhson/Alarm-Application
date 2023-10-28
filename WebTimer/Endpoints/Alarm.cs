@@ -12,6 +12,7 @@ using Domain.Entities;
 using MediatR;
 using WebTimer.Filters;
 using Microsoft.AspNetCore.Cors;
+using Domain.Types;
 
 namespace WebTimer.Endpoints
 {
@@ -22,7 +23,7 @@ namespace WebTimer.Endpoints
     public class Alarm : ApiControllerBase
     {
         [HttpGet]
-        public async Task<List<AlarmEntity>> GetAsync()
+        public async Task<List<AlarmType>> GetAsync()
         {
             return await Sender.Send(new GetAlarmsQuery());
         }
