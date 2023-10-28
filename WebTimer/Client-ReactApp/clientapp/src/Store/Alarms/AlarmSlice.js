@@ -1,20 +1,26 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { WebApi } from './web-api';
-
-
+import { WebApi } from '../../web-api';
 export const alarmSlice = createSlice({
     name:'alarms',
-    initialState:{
+    initialState: {
         alarms:[],
-        loading:true
+        loading:true,
+        alarm:{ringAt:null}
     },
     reducers:{
-        addAlarm(state,action) {
+        addAlarms(state,action) {
             state.alarms.push(...action.payload)
         },      
+        unShiftAlarm(state,action){
+            state.alarms.unshift(...action.payload)
+        },
+        getAlarm(state,action) {
+            state.alarm.ringAt = action.payload;
+        }
     },
     extraReducers:builder => {
         const web = new WebApi();
+        web.GetAlarms()
         builder.addCase(web.GetAlarms.pending,(state) => {
             state.loading = true;
         });
@@ -26,6 +32,6 @@ export const alarmSlice = createSlice({
     }
 })
 
-export const {addAlarm} = alarmSlice.actions;
+export const {addAlarms,unShiftAlarm,getAlarm} = alarmSlice.actions;
 export const alarmReducer = alarmSlice.reducer;
 
