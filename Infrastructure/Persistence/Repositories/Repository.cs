@@ -1,5 +1,7 @@
 ﻿using Application.Common.Interfaces.IRepositories;
 using Domain.Common;
+using Domain.Common.Pagination;
+using Domain.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +30,11 @@ namespace Infrastructure.Persistence.Repositories
 
             return ApplicationDbContext.Set<T>().AsNoTracking();
 
+        }
+
+        public Task<PagedResponse<T>> GetPagedResponse(int pageNumber,int pageSize)
+        {
+            return ApplicationDbContext.Set<T>().AsNoTracking().PagedListResponse(pageNumber, pageSize);
         }
 
         public ValueTask<T?> FindAsync(int id)

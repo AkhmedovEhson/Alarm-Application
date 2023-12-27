@@ -14,6 +14,7 @@ using WebTimer.Filters;
 using Microsoft.AspNetCore.Cors;
 using Domain.Types;
 using Domain.Common.Types;
+using Domain.Common.Pagination;
 
 namespace WebTimer.Endpoints
 {
@@ -24,9 +25,9 @@ namespace WebTimer.Endpoints
     public class Alarm : ApiControllerBase
     {
         [HttpGet]
-        public async Task<List<AlarmType>> GetAsync()
+        public async Task<PagedResponse<AlarmEntity>> GetAsync([FromQuery] GetAlarmsQuery query)
         {
-            return await Sender.Send(new GetAlarmsQuery());
+            return await Sender.Send(query);
         }
 
         [Route("{Id}")]
