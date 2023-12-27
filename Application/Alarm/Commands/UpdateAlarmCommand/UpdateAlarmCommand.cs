@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces.IRepositories;
 using Domain.Common.Errors;
+using Domain.Common.Types;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Application.Alarm.Commands.UpdateAlarmCommand
 {
-    public class UpdateAlarmCommand:IRequest<Unit>
+    public class UpdateAlarmCommand:IRequest<Success>
     {
         public int Id { get; set; } = 0;
         public DateTime RingAt { get; set; }
     }
 
-    public class UpdateAlarmCommandHandler : IRequestHandler<UpdateAlarmCommand, Unit>
+    public class UpdateAlarmCommandHandler : IRequestHandler<UpdateAlarmCommand, Success>
     {
         private readonly IServiceProvider _serviceProvider;
         public UpdateAlarmCommandHandler(IServiceProvider serviceProvider)
@@ -25,7 +26,7 @@ namespace Application.Alarm.Commands.UpdateAlarmCommand
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<Unit> Handle(UpdateAlarmCommand command,CancellationToken cancellationToken)
+        public async Task<Success> Handle(UpdateAlarmCommand command,CancellationToken cancellationToken)
         {
             var repo = _serviceProvider.GetRequiredService<IAlarmRepository>();
             var entity = await repo.FindAsync(command.Id) ?? throw new NotFoundException(Errors.Alarm.NotFound);
@@ -33,8 +34,8 @@ namespace Application.Alarm.Commands.UpdateAlarmCommand
             entity.RingAt = command.RingAt;
 
             await repo.Update(entity);
-            
-            return Unit.Value;       
+
+            return new Success(entity.Id);
         }
     }
 }

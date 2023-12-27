@@ -13,6 +13,7 @@ using MediatR;
 using WebTimer.Filters;
 using Microsoft.AspNetCore.Cors;
 using Domain.Types;
+using Domain.Common.Types;
 
 namespace WebTimer.Endpoints
 {
@@ -42,13 +43,13 @@ namespace WebTimer.Endpoints
         }
 
         [HttpPut]
-        public async Task<Unit> PutAsync(UpdateAlarmCommand command)
+        public async Task<Success> PutAsync(UpdateAlarmCommand command)
         {
             return await Sender.Send(command);
         }
 
         [HttpDelete]
-        public async Task<Unit> DeleteAsync(DeleteAlarmCommand command)
+        public async Task<Deleted> DeleteAsync(DeleteAlarmCommand command)
         {
             return await Sender.Send(command);
         }
