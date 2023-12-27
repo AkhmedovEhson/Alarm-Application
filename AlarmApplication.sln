@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTimer", "WebTimer\WebTimer.csproj", "{176AAACD-AA86-460E-96F3-AA41DA1EDD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{6B751A4E-B9FB-48CF-A7FD-FEC6FD7C27C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{305C9E8B-B747-4CD2-9C6E-63AB692CF7AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{749B3A10-8FA3-4B2B-851E-6CD516F72634}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{176AAACD-AA86-460E-96F3-AA41DA1EDD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176AAACD-AA86-460E-96F3-AA41DA1EDD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176AAACD-AA86-460E-96F3-AA41DA1EDD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176AAACD-AA86-460E-96F3-AA41DA1EDD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B751A4E-B9FB-48CF-A7FD-FEC6FD7C27C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B751A4E-B9FB-48CF-A7FD-FEC6FD7C27C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B751A4E-B9FB-48CF-A7FD-FEC6FD7C27C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B751A4E-B9FB-48CF-A7FD-FEC6FD7C27C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305C9E8B-B747-4CD2-9C6E-63AB692CF7AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305C9E8B-B747-4CD2-9C6E-63AB692CF7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305C9E8B-B747-4CD2-9C6E-63AB692CF7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305C9E8B-B747-4CD2-9C6E-63AB692CF7AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749B3A10-8FA3-4B2B-851E-6CD516F72634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749B3A10-8FA3-4B2B-851E-6CD516F72634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749B3A10-8FA3-4B2B-851E-6CD516F72634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749B3A10-8FA3-4B2B-851E-6CD516F72634}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
