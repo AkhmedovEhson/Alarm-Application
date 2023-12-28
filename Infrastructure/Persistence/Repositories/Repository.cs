@@ -21,12 +21,8 @@ namespace Infrastructure.Persistence.Repositories
             ApplicationDbContext = applicationDbContext;
         }
 
-        public IQueryable<T> GetValuesQueryable(bool byDescending = false)
+        public IQueryable<T> GetValuesQueryable()
         {
-            if (byDescending)
-            {
-                return ApplicationDbContext.Set<T>().AsNoTracking().OrderByDescending(o => o.Id);
-            }
 
             return ApplicationDbContext.Set<T>().AsNoTracking();
 
