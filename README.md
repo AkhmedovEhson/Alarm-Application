@@ -8,7 +8,7 @@ Heey everybody. I am Akhmedov Ehson ☕. Now I am presenting a huge Alarm Projec
 # Just put alarm and wait until ... 
 🚑️ Alarm'll send you email when you need
 
-# Contribuions
+# Contributions
 🤝 Contributions are welcome. Let's improve project together 🕸️
 
 # What, whys (?)
