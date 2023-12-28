@@ -20,7 +20,9 @@ namespace Infrastructure.Persistence.Repositories
         }
         public Task<List<AlarmType>> GetValuesAsync(bool byDescending = true)
         {
-            return GetValuesQueryable(byDescending).Select<AlarmEntity, AlarmType>(o => new AlarmType()
+            return GetValuesQueryable()
+                  .OrderByDescending(o => o.Id)
+                  .Select<AlarmEntity, AlarmType>(o => new AlarmType()
             {
                 Day = o.RingAt.Day.ToString(),
                 Hour = o.RingAt.Hour.ToString(),

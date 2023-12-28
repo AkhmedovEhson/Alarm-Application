@@ -9,7 +9,7 @@ namespace Application.Common.Interfaces.IRepositories
 {
     public interface IRepository<T>
     {
-        public IQueryable<T> GetValuesQueryable(bool byDescending);
+        public IQueryable<T> GetValuesQueryable();
         Task<PagedResponse<T>> GetPagedResponse(int pageNumber, int pageSize);
         public ValueTask<T?> FindAsync(int id);
         public Task AddAsync(T data);
