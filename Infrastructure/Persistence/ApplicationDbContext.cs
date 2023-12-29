@@ -18,6 +18,7 @@ namespace Infrastructure.Persistence
         { }
 
         public DbSet<AlarmEntity> Alarms => Set<AlarmEntity>();
+        public DbSet<UserEntity> Users => Set<UserEntity>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
