@@ -25,7 +25,7 @@ namespace WebTimer.Endpoints
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize]
+        [HttpPost]
         public async Task<UserEntity> Post(CreateUserCommand command) => await Sender.Send(command);
         /// <summary>
         /// `UpdateUserCommand` - updates user's info, if user does not exist, throws <seealso cref="NotFoundException"/>
@@ -33,28 +33,43 @@ namespace WebTimer.Endpoints
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
+        [HttpPut]
         public async Task<UserEntity> Update(UpdateUserCommand command) => await Sender.Send(command);
         /// <summary>
         /// `DeleteUserCommand` - deletes user, if user does not exist, throws <seealso cref="NotFoundException"/>
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        public async Task<Deleted> Delete(DeleteUserCommand command) => await Sender.Send(command);
+        
+        [HttpDelete("{Id}")]
+        public async Task<Deleted> Delete([FromRoute]DeleteUserCommand command) => await Sender.Send(command);
         /// <summary>
         /// `GetUsersQueryWithPaginationQuery` - looks for all users, responds with pagination
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        public async Task<PagedResponse<UserEntity>> GetAll(GetUsersQueryWithPaginationQuery query) => await Sender.Send(query);
+        [HttpGet("All")]
+        public async Task<PagedResponse<UserEntity>> All([FromQuery] GetUsersQueryWithPaginationQuery query) => await Sender.Send(query);
         /// <summary>
         /// `GetUserQuery` - finds user by `ID`, if user does not exist, throws <seealso cref="NotFoundException"/>
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        public async Task<UserEntity> Get(GetUserQuery query) => await Sender.Send(query);
+        [HttpGet("{Id}")]
+        public async Task<UserEntity> Get([FromRoute]GetUserQuery query) => await Sender.Send(query);
+        /// <summary>
+        /// `SignInQuery` - generates token with provided user's credentials
+        /// <br/>`NotFoundException` - throws if `username` could not be found in database
+        /// <br/>`PasswordException` - throws if `password` is wrong
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"/>
+        /// <exception cref="PasswordException"/>
+        [HttpPost("Login")]
+        public async Task<string> Login(SignInQuery query) => await Sender.Send(query);
 
     }
 }
