@@ -10,7 +10,7 @@ namespace Application.User.Commands.CreateUserCommand
 {
     public class CreateUserCommand : IRequest<UserEntity>
     {
-        public string UserName { get; set; }    
+        public string Username { get; set; }
         public string Password { get; set; }
     }
 
@@ -24,8 +24,8 @@ namespace Application.User.Commands.CreateUserCommand
 
             var user = new UserEntity()
             {
-                Username = command.UserName,
-                Password = Convert.FromBase64String(BCrypt.Net.BCrypt.HashPassword(command.Password))
+                Username = command.Username,
+                Password = BCrypt.Net.BCrypt.HashPassword(command.Password)
             };
 
             await repo.AddAsync(user);
