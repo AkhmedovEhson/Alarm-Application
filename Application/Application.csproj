@@ -17,10 +17,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="User\Commands\UpdateUserCommand\" />
-    <Folder Include="User\Commands\DeleteUserCommand\" />
-    <Folder Include="User\Queries\" />
-  </ItemGroup>
-
 </Project>
