@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using WebTimer.Security;
 using WebTimer.Worker;
 
 namespace WebTimer
@@ -12,13 +13,11 @@ namespace WebTimer
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddCorsConfigurations();
-
+            services.ProvideJsonWebTokensConfigurations();
             services.AddHostedService<AlarmJob>();
             return services;
         }
-
-
-        public static IServiceCollection AddCorsConfigurations(this IServiceCollection services)
+        private static IServiceCollection AddCorsConfigurations(this IServiceCollection services)
         {
            services.AddCors(
                options =>
