@@ -23,6 +23,7 @@ namespace Infrastructure
 
             // Fill DI by repositories ...
             services.AddScoped<IAlarmRepository,AlarmRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }
