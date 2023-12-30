@@ -1,16 +1,11 @@
 # Alarm-Application
-Heey everybody. I am Akhmedov Ehson ☕. Now I am presenting a huge Alarm Project.
+Welcome to Alarm API ! 🌐 
+There are bunch of API routes. Just schedule, Alarm will send email in time 📧
 
-# Sources and versions
+# Versions
 * .NET 7 ⚡️
 * React 18.0 🎨
 
-# Just put alarm and wait until ... 
-🚑️ Alarm'll send you email when you need
-
 # Contributions
-🤝 Contributions are welcome. Let's improve project together 🕸️
-
-# What, whys (?)
-Project uses Clean-Architecture template
+🤝 Contributions are welcome. Let's improve project together 🕸️. 
 
