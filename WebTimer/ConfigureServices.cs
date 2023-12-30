@@ -15,6 +15,7 @@ namespace WebTimer
             services.AddCorsConfigurations();
             services.ProvideJsonWebTokensConfigurations();
             services.AddHostedService<AlarmJob>();
+            services.AddMemoryCache();
             return services;
         }
         private static IServiceCollection AddCorsConfigurations(this IServiceCollection services)
