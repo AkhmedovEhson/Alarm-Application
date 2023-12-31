@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Domain.Infrastructure.Identity
@@ -23,6 +24,7 @@ namespace Domain.Infrastructure.Identity
             {
                 new Claim("Id",user.Id.ToString()),
                 new Claim("Username",user.Username)
+                new Claim("Alarms",JsonSerializer.Serialize(user.Alarms))
             };
 
             var securityToken = new JwtSecurityToken(
