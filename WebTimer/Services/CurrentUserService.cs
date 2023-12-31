@@ -20,5 +20,14 @@ namespace Domain.Infrastructure.Identity
             return int.Parse(_httpContextAccessor.HttpContext?.User?.FindFirstValue(JwtRegisteredClaimNames.Jti) ?? "0");
         }
 
+        public string GetUserName()
+        {
+            return _httpContextAccessor.HttpContext!.User.Claims.First(o => o.Type == "Username").Value;
+        }
+
+        public string GetAlarms()
+        {
+            return _httpContextAccessor.HttpContext!.User.Claims.First(o => o.Type == "Alarms").Value;
+        }
     }
 }
