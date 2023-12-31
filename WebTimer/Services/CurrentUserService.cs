@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using Application.Common.Exceptions;
+using System.Security.Claims;
 namespace Domain.Infrastructure.Identity
 {
     public class CurrentUserService:ICurrentUserService
@@ -16,7 +17,7 @@ namespace Domain.Infrastructure.Identity
         }
         public int GetId()
         {
-            return int.Parse(_httpContextAccessor.HttpContext?.User?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value ?? "0");
+            return int.Parse(_httpContextAccessor.HttpContext?.User?.FindFirstValue(JwtRegisteredClaimNames.Jti) ?? "0");
         }
 
     }
