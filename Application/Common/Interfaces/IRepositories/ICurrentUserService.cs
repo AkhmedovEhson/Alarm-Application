@@ -10,5 +10,7 @@ namespace Application.Common.Interfaces.IRepositories
     public interface ICurrentUserService
     {
         public int GetId();        
+        public string GetUserName();
+        public string GetAlarms();
     }
 }
