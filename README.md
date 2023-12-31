@@ -1,6 +1,6 @@
 # Alarm-Application
-Welcome to Alarm API ! 🌐 
-There are bunch of API routes. Just schedule, Alarm will send email in time 📧
+🌐 Welcome to Alarm API ! 
+<br/>🖊️ There are bunch of API routes. <i>Just schedule</i>, Alarm will send email in time 📧
 
 # Versions
 * .NET 7 ⚡️
