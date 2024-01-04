@@ -9,7 +9,6 @@
 # Security
 * 🔒 Provide JWT authorization.
 * #️⃣ Uses BCrypt, user's password is stored in `SHA256` hash type.
-* #️⃣ Uses <i>`end-to-end encryption`</i> in `tcp/ip` connection between server and client
   
 # Contributions
 🤝 Contributions are welcome. Let's improve project together 🕸️. 
